@@ -240,6 +240,19 @@ class PagoController extends Controller
 
             Log::debug("Resultado solvencia para {$alumnoNombre}: " . ($esSolvente ? "SOLVENTE" : "INSOLVENTE"));
 
+            // Un alumno SOLO es solvente si tiene los 10 meses pagados (1 al 10)
+            $mesesRequeridos = range(1, 10);
+            $mesesFaltantes = array_diff($mesesRequeridos, $mesesPagados);
+            $esSolvente = empty($mesesFaltantes);
+
+            if ($esSolvente) {
+                Log::debug("✓ SOLVENTE: Tiene los 10 meses completos pagados");
+            } else {
+                Log::debug("✗ INSOLVENTE: Faltan los meses: " . implode(', ', $mesesFaltantes));
+            }
+            // ★★★ FIN NUEVA LÓGICA ★★★
+
+
             $numerosSerie = $pagosAlumno->pluck('num_serie')->filter()->unique()->toArray();
             $alumnoInfo = [
                 'registroAlumno' => $pago->registroAlumno,
