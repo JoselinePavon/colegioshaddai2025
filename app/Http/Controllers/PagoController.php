@@ -240,10 +240,12 @@ class PagoController extends Controller
 
             Log::debug("Resultado solvencia para {$alumnoNombre}: " . ($esSolvente ? "SOLVENTE" : "INSOLVENTE"));
 
+            $numerosSerie = $pagosAlumno->pluck('num_serie')->filter()->unique()->toArray();
             $alumnoInfo = [
                 'registroAlumno' => $pago->registroAlumno,
                 'mesesPagados' => $mesesPagados,
                 'esSolvente' => $esSolvente,
+                'numerosSerie' => $numerosSerie,
             ];
 
             // Filtrar por estado si se especifica

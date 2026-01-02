@@ -81,6 +81,7 @@
                             <th scope="col">Alumno</th>
                             <th scope="col">Grado</th>
                             <th scope="col">Sección</th>
+                            <th scope="col" style="display:none;">Boletas</th>
                             <th scope="col">Estado</th>
                             <th scope="col">Acciones</th>
                         </tr>
@@ -95,6 +96,9 @@
                                     {{ $alumno['registroAlumno']->inscripcion->grado->nivel->nivel }}
                                 </td>
                                 <td>{{ $alumno['registroAlumno']->inscripcion->seccion->seccion ?? 'Sin Sección' }}</td>
+                                <td style="display:none;">
+                                    {{ isset($alumno['numerosSerie']) ? implode(' ', $alumno['numerosSerie']) : '' }}
+                                </td>
                                 <td class="estado">
                                     <span class="badge bg-secondary">● Sin estado</span>
                                 </td>
